@@ -4,7 +4,7 @@ feature 'restaurants' do
   context 'no restaurants have been added' do
     scenario 'should display a prompt to add a restaurant' do
       visit '/restaurants'
-      expect(page).to have_content 'No restaurants yet motherfuckers!'
+      expect(page).to have_content 'No restaurants yet baby!'
       expect(page).to have_link 'Add a restaurant'
     end
   end
@@ -17,7 +17,7 @@ feature 'restaurants' do
     scenario 'display restaurants' do
       visit '/restaurants'
       expect(page).to have_content('KFC')
-      expect(page).not_to have_content('No restaurants yet mother fuckers!')
+      expect(page).not_to have_content('No restaurants yet baby!')
     end
   end
 
@@ -45,9 +45,7 @@ feature 'restaurants' do
   end
 
   context 'editing restaurants'do
-    before do
-      Restaurant.create(name: 'KFC')
-    end
+    before {Restaurant.create name: 'KFC'}
 
     scenario 'let user edit restaurant' do
       visit '/restaurants'
