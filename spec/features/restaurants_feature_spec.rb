@@ -78,4 +78,15 @@ feature 'restaurants' do
       expect(page).to have_content 'error'
     end
   end
+
+  context 'a unique restaurant' do
+    before {Restaurant.create name: 'KFC'}
+    it 'does not let you submit a name that already exists' do
+     visit '/restaurants'
+     click_link 'Add a restaurant'
+     fill_in 'Name', with: 'KFC'
+     click_button 'Create Restaurant'
+     expect(page).to have_content 'error'
+    end
+  end
 end
