@@ -1,6 +1,11 @@
 require 'rails_helper'
 
 feature 'restaurants' do
+
+  before do
+    sign_up(email: 'test@example.com', password: 'testtest', password_confirmation: 'testtest')
+  end
+
   context 'no restaurants have been added' do
     scenario 'should display a prompt to add a restaurant' do
       visit '/restaurants'
@@ -45,6 +50,7 @@ feature 'restaurants' do
   end
 
   context 'editing restaurants'do
+
     before {Restaurant.create name: 'KFC'}
 
     scenario 'let user edit restaurant' do
@@ -58,9 +64,16 @@ feature 'restaurants' do
   end
 
   context 'deleting restaurants' do
-    before {Restaurant.create name: 'KFC'}
+    before do
+      sign_up(email: 'test@example.com', password: 'testtest', password_confirmation: 'testtest')
+      visit '/restaurants'
+      click_link 'Add a restaurant'
+      fill_in 'Name', with: 'KFC'
+      click_button 'Create Restaurant'
+    end
 
     scenario 'removes a restaurant when a user clicks a delete link' do
+
       visit '/restaurants'
       click_link 'Delete KFC'
       expect(page).not_to have_content 'KFC'
@@ -76,6 +89,17 @@ feature 'restaurants' do
       click_button 'Create Restaurant'
       expect(page).not_to have_css 'h2', text: 'kf'
       expect(page).to have_content 'error'
+    end
+  end
+
+  context 'a unique restaurant' do
+    before {Restaurant.create name: 'KFC'}
+    it 'does not let you submit a name that already exists' do
+     visit '/restaurants'
+     click_link 'Add a restaurant'
+     fill_in 'Name', with: 'KFC'
+     click_button 'Create Restaurant'
+     expect(page).to have_content 'error'
     end
   end
 

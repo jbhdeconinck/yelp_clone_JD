@@ -9,4 +9,5 @@ describe Review, type: :model do
     expect(review).to have(1).error_on(:rating)
     expect(review).not_to be_valid
   end
+
 end

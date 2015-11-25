@@ -15,4 +15,7 @@ class ReviewsController < ApplicationController
     params.require(:review).permit(:thoughts, :rating)
   end
 
+
+
+
 end
