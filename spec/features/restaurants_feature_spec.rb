@@ -51,7 +51,12 @@ feature 'restaurants' do
 
   context 'editing restaurants'do
 
-    before {Restaurant.create name: 'KFC'}
+    before do
+      visit '/restaurants'
+      click_link 'Add a restaurant'
+      fill_in 'Name', with: 'KFC'
+      click_button 'Create Restaurant'
+    end
 
     scenario 'let user edit restaurant' do
       visit '/restaurants'
@@ -65,7 +70,6 @@ feature 'restaurants' do
 
   context 'deleting restaurants' do
     before do
-      sign_up(email: 'test@example.com', password: 'testtest', password_confirmation: 'testtest')
       visit '/restaurants'
       click_link 'Add a restaurant'
       fill_in 'Name', with: 'KFC'
@@ -102,15 +106,4 @@ feature 'restaurants' do
      expect(page).to have_content 'error'
     end
   end
-
-  context 'a unique restaurant' do
-    before {Restaurant.create name: 'KFC'}
-    it 'does not let you submit a name that already exists' do
-     visit '/restaurants'
-     click_link 'Add a restaurant'
-     fill_in 'Name', with: 'KFC'
-     click_button 'Create Restaurant'
-     expect(page).to have_content 'error'
-    end
-  end
-end
+end  

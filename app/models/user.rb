@@ -24,8 +24,6 @@ class User < ActiveRecord::Base
      reviewed_restaurants.include? restaurant
    end
 
-   
-
    has_many :reviewed_restaurants, through: :reviews, source: :restaurant
    has_many :reviews
    has_many :restaurants
