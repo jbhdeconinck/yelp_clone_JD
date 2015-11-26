@@ -14,5 +14,18 @@ feature 'reviewing' do
     expect(page).to have_content('so so')
   end
 
-  
+  scenario 'displays an average rating for all reviews' do
+    sign_up(email: 'test@example.com', password: 'testtest', password_confirmation: 'testtest')
+    visit '/restaurants'
+    click_link 'Review KFC'
+    leave_review('So so', '3')
+    click_link 'Sign out'
+    sign_up(email: 'test2@example.com', password: 'testtest2', password_confirmation: 'testtest2')
+    visit '/restaurants'
+    click_link 'Review KFC'
+    leave_review('Great', '5')
+    expect(page).to have_content('Average rating: 4')
+  end
+
+
 end
