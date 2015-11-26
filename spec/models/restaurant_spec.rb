@@ -34,6 +34,7 @@ describe Restaurant, type: :model do
     end
 
     context 'has 2 reviews' do
+      
         let(:user) { FactoryGirl.build(:user) }
         let(:user2) { FactoryGirl.build(:user2) }
         let(:review_params) { { thoughts: 'So so', rating: 3 } }
