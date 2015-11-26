@@ -9,4 +9,10 @@ class Restaurant < ActiveRecord::Base
     reviews.inject(0) { |sum, n| sum + n.rating } / reviews.count
   end
 
+  def build_review review_params, user
+    review = reviews.new(review_params)
+    review.user = user
+    review
+  end
+
 end

@@ -34,25 +34,18 @@ describe Restaurant, type: :model do
     end
 
     context 'has 2 reviews' do
-    let(:user1) do
-      user1 = User.create(email: 'hello@hello.com',
-                          password: 'password1',
-                          password_confirmation: 'password1')
-    end
-
-    let(:user2) do
-      user2 = User.create(email: 'hola@hello.com',
-                          password: 'password2',
-                          password_confirmation: 'password2')
-    end
+        let(:user) { FactoryGirl.build(:user) }
+        let(:user2) { FactoryGirl.build(:user2) }
+        let(:review_params) { { thoughts: 'So so', rating: 3 } }
+        let(:review_params2) { { thoughts: 'Bad', rating: 1 } }
 
       it 'returns the average rating' do
         restaurant = Restaurant.create(name: 'The Ivy')
-        review1 = restaurant.reviews.create(rating: 5)
-        user1.reviews << review1
-        review2 = restaurant.reviews.create(rating: 1)
-        user2.reviews << review2
-        expect(restaurant.average_rating).to eq 3
+        restaurant.build_review(review_params, user)
+        restaurant.save
+        restaurant.build_review(review_params2, user2)
+        restaurant.save
+        expect(restaurant.average_rating).to eq 2
       end
     end
   end
