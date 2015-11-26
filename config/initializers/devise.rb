@@ -23,7 +23,7 @@ Devise.setup do |config|
   # available as additional gems.
   require 'devise/orm/active_record'
 
-  config.omniauth :facebook, ENV['APP_ID'], ENV['APP_SECRET']
+  config.omniauth :facebook, ENV['FB_APP_ID'], ENV['FB_APP_SECRET']
 
 
   # ==> Configuration for any authentication mechanism
